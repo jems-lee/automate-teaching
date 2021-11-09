@@ -1,13 +1,15 @@
-from dataclasses import dataclass
-from enum import Enum
-import gspread
-from oauth2client.service_account import ServiceAccountCredentials
-import pandas as pd
 import pathlib
+from dataclasses import dataclass
 from datetime import date
-from dotenv import dotenv_values
+from enum import Enum
+from typing import List
 
-config = dotenv_values(".env")
+import gspread
+import pandas as pd
+from dotenv import dotenv_values
+from oauth2client.service_account import ServiceAccountCredentials
+
+config = dotenv_values("../.env")
 
 
 PRIVATE_KEY = pathlib.Path.cwd() / config["PRIVATE_KEY_FILE"]
@@ -43,7 +45,14 @@ def get_formatted_date(hw_name: str, df_schedule):
     return date.fromisoformat(duedate.values[0]).strftime(DATE_MMDDYY)
 
 
-def format_homework_problems(df_hw, df_textbook):
+def format_homework_problems(df_hw: pd.DataFrame, df_textbook: pd.DataFrame) -> List[str]:
+    """
+    Formats the dataframes into a pretty string.
+
+    :param pd.DataFrame df_hw: Columns [Chapter, Section, Problem]
+    :param pd.DataFrame df_textbook: Columns [Chapter, Section, Description]
+    :return List[str] document_strings:
+    """
     document_strings = []
     for each in df_hw.merge(
         df_textbook, how="inner", on=["Chapter", "Section"]
