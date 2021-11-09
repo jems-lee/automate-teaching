@@ -1,4 +1,4 @@
-# course-automate
+# automate-teaching
 Automate homework and schedule creation given data from Google Sheets
 
 Easily generate homework assignments and semester schedules.
