@@ -1,0 +1,9 @@
+private*
+__pycache__
+venv
+.idea
+.ipynb_checkpoints
+test.ipynb
+hw0*
+.env
+client_id.json
